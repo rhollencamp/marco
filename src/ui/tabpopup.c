@@ -615,9 +615,13 @@ static GtkWidget*
 selectable_image_new (GdkPixbuf *pixbuf)
 {
   GtkWidget *w;
+  cairo_surface_t *surface;
 
+  surface = gdk_cairo_surface_create_from_pixbuf (pixbuf, 2, NULL);
   w = g_object_new (meta_select_image_get_type (), NULL);
-  gtk_image_set_from_pixbuf (GTK_IMAGE (w), pixbuf);
+  gtk_image_set_from_surface (GTK_IMAGE (w), surface);
+
+  cairo_surface_destroy (surface);
 
   return w;
 }

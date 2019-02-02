@@ -691,6 +691,9 @@ meta_read_icons (MetaScreen     *screen,
   Pixmap pixmap;
   Pixmap mask;
 
+  ideal_width *= 2;
+  ideal_height *= 2;
+
   /* Return value is whether the icon changed */
 
   g_return_val_if_fail (icon_cache != NULL, FALSE);
@@ -737,6 +740,7 @@ meta_read_icons (MetaScreen     *screen,
                          &w, &h, &pixdata,
                          &mini_w, &mini_h, &mini_pixdata))
         {
+          meta_warning ("scaling from %d %d to %d %d", w, h, ideal_width, ideal_height);
           *iconp = scaled_from_pixdata (pixdata, w, h,
                                         ideal_width, ideal_height);
 
